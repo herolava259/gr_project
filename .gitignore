@@ -1,0 +1,5 @@
+/data/
+/model_weights/
+/preprocessing/data2.tfrecords
+*.h5
+*.tfrecords

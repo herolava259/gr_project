@@ -1,0 +1,55 @@
+linux
+##install python version 3.7
+apt-get install python3.7
+ln -sf /usr/bin/python3.7 /usr/bin/python
+
+##install alternate python 3.7
+sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 1
+
+##update altenatives
+!sudo update-alternatives --config python3
+
+## intstall to disutils and python3-apt
+!sudo apt install python3.7-distutils
+
+!sudo apt install python3.7-apt
+
+## check python version
+
+!sudo apt install python3-pip
+
+## install wheel
+pip install wheel
+
+## upgrade pip
+!python3 -m pip install --user --upgrade pip
+
+## uppgrade wheel, setuptools
+!python3 -m pip install --upgrade pip setuptools wheel
+
+## install pyproject-toml
+!python3 -m pip install pyproject-toml
+
+
+#Setup môi trường chuẩn để sử dụng tfx trong gg colab
+
+##Chạy khối cell sau
+%%shell
+sudo apt update
+sudo apt install python3.8 python3.8-distutils python3.8-dev
+update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 3
+curl -O https://bootstrap.pypa.io/get-pip.py
+python get-pip.py
+
+Sau đó:
+!grep -v google-auth /etc/requirements.core.in > requirements.txt
+
+## httplib2 nên được bao gồm:
+!grep httplib2 /etc/requirements.user.in >> requirements.txt
+
+## gg colab không săn dùng như 1 wheel thế nên thục hiện câu lênh sau
+!mkdir /usr/local/lib/python3.8/dist-packages/google
+!ln -s /usr/local/lib/python3.10/dist-packages/google/colab /usr/local/lib/python3.8/dist-packages/google/colab
+
+# Now with those pre-requisites out of the way:
+!pip install tfx==1.13.0 -r requirements.txt
